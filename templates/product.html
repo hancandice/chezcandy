@@ -25,8 +25,10 @@
             <a>
               <span class="badge purple mr-1"
                 >{{ object.get_category_display }}</span>
+                {% if object.label %}
               <span class="badge black mr-1"
                 >{{ object.get_label_display }}</span>
+                {% endif %}
             </a>
           </div>
 
