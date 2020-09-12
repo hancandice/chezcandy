@@ -9,6 +9,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(
 dotenv_file = os.path.join(BASE_DIR, ".env")
 if os.path.isfile(dotenv_file):
     dotenv.load_dotenv(dotenv_file)
+    
 SECRET_KEY = str(os.environ.get('SECRET_KEY', ''))
 
 ALLOWED_HOSTS = ['13.209.111.133']
