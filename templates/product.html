@@ -1,0 +1,235 @@
+{% extends "base.html" %} 
+{% block content %}
+{% load pybo_filter %} 
+
+<!--Main layout-->
+<main class="mt-5 pt-4">
+  <div class="container dark-grey-text mt-5">
+    <!--Grid row-->
+    <div class="row wow fadeIn">
+      <!--Grid column-->
+      <div class="col-md-6 mb-4">
+        {% if object.image %}
+        <img src="{{ object.image.url }}" class="img-fluid" alt="" />
+        {% elif not object.image and object.imgsrc %}
+        <img src="{{ object.imgsrc }}" class="img-fluid" alt="" />
+        {% else %} {% endif %}
+      </div>
+      <!--Grid column-->
+
+      <!--Grid column-->
+      <div class="col-md-6 mb-4">
+        <!--Content-->
+        <div class="p-4">
+          <div class="mb-3">
+            <a>
+              <span class="badge purple mr-1"
+                >{{ object.get_category_display }}</span>
+              <span class="badge black mr-1"
+                >{{ object.get_label_display }}</span>
+            </a>
+          </div>
+
+            <p class="lead text-right small">{{ object.create_date }}</p>
+            
+            {% if object.comment_set.count == 0 or object.comment_set.count == 1 %}
+            <p class="lead text-right small">{{ object.comment_set.count }} comment</p>
+            {% else %}
+            <p class="lead text-right small">{{ object.comment_set.count }} comments</p>
+            {% endif %}
+            
+            <p class="lead font-weight-bold">{{ object.title }}</p>
+
+            <p>
+              {{ object.contents_short }}
+            </p>
+        </div>
+      </div>
+      <div class="col-md-12 mb-4">  
+          <div class="p-4">
+            {% if object.contents_long %}
+              <p>
+                {{ object.contents_long }}
+              </p>
+            {% endif %}
+          </div>
+      </div>
+    </div>
+<!-- ========== comments ==========-->
+    {% if object.comment_set.count > 0 %}
+        <div class="m-3">
+          {% for comment in object.comment_set.all %}
+          
+          <div
+            class="p-2 my-3 text-left"
+            id="comment_{{ comment.id }}"
+            style="
+              background-color: #cccec7;
+              border-radius: 0 10px 10px 10px;
+              width: 100%;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              box-shadow: 0 13px 27px -5px rgba(50, 50, 93, 0.25),
+              0 8px 16px -8px rgba(0, 0, 0, 0.3), 0 -6px 16px -6px rgba(0, 0, 0, 0.025);
+            "
+          >
+            <span class="commentContent small"
+              >{{ comment.content|mark }}
+            </span>
+            <span class="small text-muted commentContent text-right">
+              @ {{ comment.author }} / {{ comment.createDate }}
+            </span>
+          </div>
+          {% if request.user == comment.author %}
+          <div class="d-flex justify-content-end">
+            <div>
+              <a
+                href="{% url 'pybo:comment_modify_item' comment.id %}"
+                class="small btn btn-sm btn-elegant"
+                style="
+                  background-color: rgb(216, 223, 182);
+                  border: none;
+                  padding: 0px 0.5em;
+                "
+                ><small>Edit</small></a
+              >
+              <a
+                href="#"
+                class="small delete btn btn-sm btn-elegant ml-1"
+                style="
+                  background-color: rgb(216, 223, 182);
+                  border: none;
+                  padding: 0px 0.5em;
+                "
+                data-uri="{% url 'pybo:comment_delete_item' comment.id %}"
+                ><small>Delete</small></a
+              >
+            </div>
+          </div>
+          {% endif %} 
+          {% endfor %}
+        </div>
+        {% endif %} 
+        {% if user.is_authenticated %}
+        <div>
+          <a
+            href="{% url 'pybo:comment_create_item' object.slug %}"
+            class="m-3 btn btn-sm btn-mdb-color"
+            style="background-color: rgb(216, 223, 182); border: none;"
+            ><small>Add Comment</small></a
+          >
+        </div>
+        {% else %}
+        <div>
+          <a
+            href="{% url 'pybo:comment_create_item' object.slug %}"
+            class="m-3 btn btn-sm btn-mdb-color btn-lime"
+            ><small>Login to Comment</small></a
+          >
+        </div> 
+        {% endif %}
+    <hr />
+
+    <div class="row d-flex justify-content-center wow fadeIn">
+     
+      <div class="col-md-6 text-center">
+        <h4 class="my-4 h4">⭐️</i></h4>
+
+        <p>
+          그대는 밤 하늘의 빛나는 별 <br>읽어주셔서 감사합니다
+        </p>
+      </div>
+      <!--Grid column-->
+    </div>
+    <!--Grid row-->
+
+    <!--Grid row-->
+    <div class="row wow fadeIn">
+      <!--Grid column-->
+      <div class="col-lg-4 col-md-12 my-4">
+        <img
+          src="https://images.unsplash.com/photo-1548214907-443d9658aa62?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+          class="img-fluid"
+          alt=""
+        />
+      </div>
+      <!--Grid column-->
+
+      <!--Grid column-->
+      <div class="col-lg-4 col-md-6 my-4">
+        <img
+          src="https://images.unsplash.com/photo-1496136998968-81293d01179b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+          class="img-fluid"
+          alt=""
+        />
+      </div>
+      <!--Grid column-->
+
+      <!--Grid column-->
+      <div class="col-lg-4 col-md-6 my-4">
+        <img
+          src="https://images.unsplash.com/photo-1586274677440-231405a4c74c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+          class="img-fluid"
+          alt=""
+        />
+      </div>
+      <!--Grid column-->
+    </div>
+    <!--Grid row-->
+  </div>
+</main>
+<!--Main layout-->
+
+{% endblock content %}
+
+{% block extra_script %}
+<script type="text/javascript">
+  $(document).ready(function () {
+
+    $(".delete").on("click", function () {
+      if (confirm("Do you want to delete this post?")) {
+        location.href = $(this).data("uri");
+      }
+    });
+
+    $(".recommend").on("click", function () {
+      if (confirm("Do you like this post?")) {
+        location.href = $(this).data("uri");
+      }
+    });
+
+    let comment = document.URL.match(/comment_([0-9]+)/);
+    if (comment !== null){
+      comment = comment[0];
+      console.log(comment);
+      $(".navbar").hide();
+      window.addEventListener("scroll", function(){
+        setTimeout(showNavbar, 3000);
+      });
+
+      function showNavbar() {
+        $(".navbar").show();
+      };
+      
+    };
+  });
+
+
+</script>
+{% endblock %}
+
+<!-- window.addEventListener('DOMContentLoaded', (e) => {
+  if (typeof (document.URL.match(/comment_([0-9]+)/)[0]) !== "undefined") {
+    e.preventDefault();
+    const comment = (document.URL.match(/comment_([0-9]+)/)[0]);  
+    const anchor = document.getElementById(comment);
+    const anchor_position = anchor.offsetTop;
+    const position = anchor_position - 500;
+    console.log(comment, anchor_position, position)
+    window.scrollTo({
+      left: 0,
+      top: position,
+    });
+  } 
+}) -->
