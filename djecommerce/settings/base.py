@@ -12,7 +12,7 @@ if os.path.isfile(dotenv_file):
 
 SECRET_KEY = str(os.environ.get('SECRET_KEY', ''))
 
-ALLOWED_HOSTS = ['13.209.111.133']
+ALLOWED_HOSTS = ['3.34.93.25']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
