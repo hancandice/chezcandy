@@ -1,6 +1,6 @@
 from .base import *
 
-ALLOWED_HOSTS = ['35.181.136.156']
+ALLOWED_HOSTS = ['13.209.111.133']
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static_in_env/')
 
