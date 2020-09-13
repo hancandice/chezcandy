@@ -6,4 +6,4 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static_in_env/')
 
 STATICFILES_DIRS = []
 
-DEBUG = True
+DEBUG = False
