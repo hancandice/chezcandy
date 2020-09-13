@@ -115,9 +115,7 @@
         id="contents_short"
         rows="10"
         placeholder="Short Contents"
-      >
-        {{form.contents_short.value|default_if_none:''}}
-      </textarea>
+      >{{form.contents_short.value|default_if_none:''}}</textarea>
     </div>
     <div class="form-group">
       <label for="contents_long">Contents 2</label>
@@ -127,9 +125,7 @@
         id="contents_long"
         rows="30"
         placeholder="Long Contents"
-      >
-        {{form.contents_long.value|default_if_none:''}}
-      </textarea>
+      >{{form.contents_long.value|default_if_none:''}}</textarea>
     </div>
     <button type="submit" class="btn waves-effect aqua-gradient text-white">Submit Post</button>
   </form>
