@@ -128,6 +128,7 @@ EMAIL_HOST = "smtp.gmail.com"
 
 EMAIL_PORT = 587
 
+
 EMAIL_HOST_USER = str(os.environ.get('EMAIL_HOST_USER', ''))
 
 EMAIL_HOST_PASSWORD = str(os.environ.get('EMAIL_HOST_PASSWORD', ''))
@@ -137,12 +138,6 @@ SITE_ID = 1
 
 # CRISPY FORMS
 CRISPY_TEMPLATE_PACK = "bootstrap4"
-
-# STRIPE Settings
-
-
-STRIPE_PUBLISHABLE_KEY = str(os.environ.get('STRIPE_PUBLISHABLE_KEY', ''))
-STRIPE_SECRET_KEY = str(os.environ.get('STRIPE_SECRET_KEY', ''))
 
 
 
