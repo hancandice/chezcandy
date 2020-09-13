@@ -31,6 +31,22 @@
       <!-- Right -->
       <ul class="navbar-nav nav-flex-icons">
         {% if request.user.is_authenticated %}
+
+        {% if user.is_superuser %}
+
+        <li class="nav-item mr-4">
+          <a class="nav-link waves-effect btn btn-sm purple-gradient text-white" 
+          href="{% url 'core:item_create' %}">
+            <i class="fas fa-pen-nib"></i>
+            <span class="clearfix d-none d-sm-inline-block font-weight-bold">
+              Write a Post
+            </span>
+          </a>
+        </li>
+
+          {% else %}
+          
+          {% endif %}
         <li class="nav-item">
           <a class="nav-link waves-effect">
             <span class="badge blue z-depth-1 mr-1"> Welcome ! </span>

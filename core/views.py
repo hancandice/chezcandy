@@ -1,4 +1,8 @@
-
+from django.dispatch import receiver
+from django.db import models
+import random
+import string
+from django.utils.text import slugify
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.conf import settings
@@ -10,6 +14,7 @@ from django.shortcuts import render, get_object_or_404, redirect, resolve_url
 from django.utils import timezone
 from django.views.generic import DetailView, View
 from .models import Item
+from .forms import ItemForm
 
 # Create your views here.
 
@@ -72,5 +77,95 @@ class ItemDetailView(DetailView):
 def products(request):
     context = {'items': Item.objects.all()}
     return render(request, "products.html", context)
+
+
+@login_required(login_url="account_login")
+def ItemCreate(request):
+    if not request.user.is_superuser:
+        messages.warning(request, 'Not authorized to write a post')
+        return redirect('core:homepage')
+    else:
+        if request.method == "POST":
+            form = ItemForm(request.POST, request.FILES)
+            if form.is_valid():
+                item = form.save(commit=False)  
+                item.createDate = timezone.now()
+                item.slug = unique_slug_generator(item)
+                item.save()
+                return redirect('core:homepage')
+            else:
+                return render(request, "item_form.html", {'form': form})
+        else:
+            form = ItemForm()
+            return render(request, "item_form.html", {'form': form})
+
+# ============== Slug Generator ==============
+def unique_slug_generator(instance, new_slug=None):
+    if new_slug is not None:
+        slug = new_slug
+    else:
+        str = replace_all(instance.slug_title.lower())
+        slug = slugify(str)
+
+    Klass = instance.__class__
+    qs_exists = Klass.objects.filter(slug=slug).exists()
+    if qs_exists:
+        new_slug = "{slug}-{randstr}".format(
+                    slug=slug,
+                    randstr=random_string_generator(size=4)
+                )
+        return unique_slug_generator(instance, new_slug=new_slug)
+    return slug
+
+def random_string_generator(size=10, chars=string.ascii_lowercase + string.digits):
+    return ''.join(random.choice(chars) for _ in range(size))
+
+def replace_all(text):
+    rep = {
+        'ı':'i',
+        'ş':'s',
+        'ü':'u',
+        'ö':'o',
+        'ğ':'g',
+        'ç':'c'
+    }
+    for i, j in rep.items():
+            text = text.replace(i, j)
+    return text
+# ============== End of Slug Generator ==============
+
+@login_required(login_url='account_login')
+def ItemModify(request, slug):
+    item = get_object_or_404(Item, slug=slug)
+    if not request.user.is_superuser:
+        messages.warning(request, 'Not authorized to modify the post')
+        return redirect('core:homepage')    
+    else:
+        if request.method == "GET":
+            form = ItemForm(instance=item)
+            context = {'item': item, 'form': form}
+            return render(request, 'item_form.html', context)
+        else:
+            form = ItemForm(request.POST, request.FILES, instance=item)
+            if form.is_valid():
+                item = form.save(commit=False)  
+                item.slug = unique_slug_generator(item)
+                item.modifyDate = timezone.now()
+                item.save()
+                return redirect('core:product', slug=item.slug)
+            else:
+                context = {'item': item, 'form': form}
+                return render(request, 'item_form.html', context)
+
+
+@login_required(login_url='account_login')
+def ItemDelete(request, slug):
+    item = get_object_or_404(Item, slug=slug)
+    if not request.user.is_superuser:
+        messages.warning(request, 'Not authorized to delete the post') 
+    else:
+        item.delete()
+        messages.info(request, 'Successfully deleted your post.')
+    return redirect('core:homepage') 
 
 
