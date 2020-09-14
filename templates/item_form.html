@@ -2,7 +2,7 @@
 {% block content %}
 <div class="container">
   <h5 class="my-3 border-bottom pb-2">Write a Post</h5>
-  <form enctype="multipart/form-data" method="POST" class="post-form my-3" data-ajax="false">
+  <form enctype="multipart/form-data" method="POST" class="post-form my-3">
     {% csrf_token %} 
     {% if form.errors %}
     <div class="alert alert-danger" role="alert">
