@@ -1,5 +1,5 @@
 {% extends "base.html" %} 
-
+{% load hitcount_tags %}
 {% block head_title %}Home{% endblock %}
 {% block content %}
 
@@ -233,7 +233,12 @@
               <img src="{{ item.imgsrc }}" class="card-img-top" alt="" />
               {% else %} 
               {% endif %}
+              {% comment %}
               <a href="{{ item.get_absolute_url }}">
+                <div class="mask rgba-white-slight"></div>
+              </a>
+              {% endcomment %}
+              <a href="{% url 'core:product' item.slug %}">
                 <div class="mask rgba-white-slight"></div>
               </a>
             </div>
@@ -245,23 +250,30 @@
               <a href="" class="grey-text">
                 <h5> {{ item.get_category_display }} </h5>
               </a>
+              {% if item.label %}
+              <div>
+                <h5>
+                  <span class="badge badge-pill bg-dark">
+                    {{ item.get_label_display }}
+                  </span>
+                </h5>
+              </div>    
+            {% endif %}
               <h5>
                 <strong>
+                  {% comment %}
                   <a href="{{ item.get_absolute_url }}" class="dark-grey-text"
+                  >{{ item.title }} 
+                  </a>
+                  {% endcomment %}
+                  <a href="{% url 'core:product' item.slug %}" class="dark-grey-text"
                   >{{ item.title }} 
                   </a>
                 </strong>
               </h5>
-              {% if item.label %}
-                <div>
-                <h5>
-                  <span class="badge badge-pill bg-dark">
-                    {{ item.get_label_display }}
-                </span>
-                </h5>
-              </div>    
-                  {% endif %}
-
+                  <small class="text-muted">
+                    <span>조회수 {% get_hit_count for item %}회 • {{ item.get_create_date_str }}</span>
+                  </small>     
             </div>
             <!--Card content-->
           </div>

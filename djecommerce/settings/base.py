@@ -33,7 +33,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'django_countries',
     'core',
-    # 'social_django',
+    'hitcount'
 ]
 
 MIDDLEWARE = [
@@ -139,7 +139,3 @@ SITE_ID = 1
 
 # CRISPY FORMS
 CRISPY_TEMPLATE_PACK = "bootstrap4"
-
-
-
-

@@ -1,4 +1,5 @@
 {% extends "base.html" %} 
+{% load hitcount_tags %}
 {% load pybo_filter %} 
 {% block extra_head %}
 <style type="text/css">
@@ -39,9 +40,8 @@
                 {% endif %}
             </a>
           </div>
-
             <p class="lead text-right small">{{ object.create_date }}</p>
-            
+            <p class="lead text-right small">조회수 {% get_hit_count for object %}회</p>
             {% if object.comment_set.count == 0 or object.comment_set.count == 1 %}
             <p class="lead text-right small">{{ object.comment_set.count }} comment</p>
             {% else %}
@@ -173,7 +173,70 @@
         </div> 
         {% endif %}
     <hr />
+    <div class="text-center"><h3 class="my-4 h3 text-muted">Popular Posts</h3></div>
+    <div class="row wow fadeIn">
+      {% for item in popular_posts %}
+      <div class="col-lg-3 col-md-6 mb-4">
+        <!--Card-->
+        <div class="card">
+          <!--Card image-->
+          <div class="view overlay">
+            {% if item.image %}
+            <img src="{{ item.image.url }}" class="card-img-top" alt="" />
+            {% elif not item.image and item.imgsrc %}
+            <img src="{{ item.imgsrc }}" class="card-img-top" alt="" />
+            {% else %} 
+            {% endif %}
+            {% comment %}
+            <a href="{{ item.get_absolute_url }}">
+              <div class="mask rgba-white-slight"></div>
+            </a>
+            {% endcomment %}
+            <a href="{% url 'core:product' item.slug %}">
+              <div class="mask rgba-white-slight"></div>
+            </a>
+          </div>
+          <!--Card image-->
+    
+          <!--Card content-->
+          <div class="card-body text-center">
+            <!--Category & Title-->
+            <a href="" class="grey-text">
+              <h5> {{ item.get_category_display }} </h5>
+            </a>
+            {% if item.label %}
+            <div>
+              <h5>
+                <span class="badge badge-pill bg-dark">
+                  {{ item.get_label_display }}
+                </span>
+              </h5>
+            </div>    
+          {% endif %}
+            <h5>
+              <strong>
+                {% comment %}
+                <a href="{{ item.get_absolute_url }}" class="dark-grey-text"
+                >{{ item.title }} 
+                </a>
+                {% endcomment %}
+                <a href="{% url 'core:product' item.slug %}" class="dark-grey-text"
+                >{{ item.title }} 
+                </a>
+              </strong>
+            </h5>
+                <small class="text-muted">
+                  <span>조회수 {% get_hit_count for item %}회 • {{ item.get_create_date_str }}</span>
+                </small>     
+          </div>
+          <!--Card content-->
+        </div>
+        <!--Card-->
+      </div>
+      {% endfor %}
+    </div>
 
+    <hr />
     <div class="row d-flex justify-content-center wow fadeIn">
      
       <div class="col-md-6 text-center">
