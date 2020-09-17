@@ -79,7 +79,7 @@ class ItemDetailView(HitCountDetailView):
     def get_context_data(self, **kwargs):
         context = super(ItemDetailView, self).get_context_data(**kwargs)
         context.update({
-            'popular_posts': Item.objects.order_by('-hit_count_generic__hits')[:4],
+            'popular_posts': Item.objects.order_by('-hit_count_generic__hits', '-create_date')[:4],
         })
         return context
 
