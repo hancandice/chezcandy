@@ -1,4 +1,4 @@
-# Personal Blog where people can CRUD posts & comments as well 
+# Personal Blog where people can CRUD posts & comments as well
 
 ---
 
@@ -7,14 +7,13 @@
 - [x] Sign up / login function
 - [x] Posts sorting function
 - [x] Search posts function by keywords
-- [x] Question & Answer Board 
+- [x] Question & Answer Board
 - [x] Writing posts function
 - [x] Post recommendation function
 - [x] Answer post and comment function
+- [x] View Count / Popular post suggestion
 
 ---
-
-
 
 <br>
 
@@ -24,11 +23,10 @@
 
 <br>
 
-
 ---
 
 > ### Visit my site ! 👇🏼
 
-- www.chezcandy.com
+- www.chezcandy.fun
 
 ---
