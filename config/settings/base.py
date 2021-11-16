@@ -46,7 +46,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware'
 ]
 
-ROOT_URLCONF = 'djecommerce.urls'
+ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
     {
@@ -120,7 +120,7 @@ ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 180
 LOGIN_REDIRECT_URL = '/'
 ACCOUNT_LOGOUT_REDIRECT_URL = '/'
 ACCOUNT_FORMS = {
-    'signup': 'djecommerce.forms.CustomSignupForm',
+    'signup': 'config.forms.CustomSignupForm',
 }
 
 EMAIL_USE_TLS = True
