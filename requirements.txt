@@ -31,3 +31,4 @@ stripe==2.49.0
 toml==0.10.1
 urllib3==1.25.9
 wrapt==1.12.1
+django-hitcount
