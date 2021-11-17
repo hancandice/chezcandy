@@ -1,17 +1,17 @@
-# Personal Blog where people can CRUD posts & comments as well
+# A blog where users can CRUD posts & comments
 
 ---
 
 > ### Features included
 
-- [x] Sign up / login function
-- [x] Posts sorting function
-- [x] Search posts function by keywords
+- [x] User signup / login / logout
+- [x] Sorting posts
+- [x] Searching posts by keywords
 - [x] Question & Answer Board
-- [x] Writing posts function
-- [x] Post recommendation function
-- [x] Answer post and comment function
-- [x] View Count / Popular post suggestion
+- [x] Writing posts 
+- [x] Voting for posts you like
+- [x] Writing comments
+- [x] View count / Popular posts suggestion
 
 ---
 
@@ -25,7 +25,7 @@
 
 ---
 
-> ### Visit my site ! 👇🏼
+> ### Visit my site from your browser ! 👇🏼
 
 - www.chezcandy.fun
 
