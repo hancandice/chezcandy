@@ -193,5 +193,9 @@ LOGGING = {
             'level': 'INFO',
             'propagate': False,
         },
+        'chezcandy': {
+            'handlers': ['console', 'file'],
+            'level': 'INFO'
+        }
     }
 }

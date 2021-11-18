@@ -1,17 +1,19 @@
-from django.shortcuts import render, get_object_or_404, redirect
-from django.utils import timezone
 from django.core.paginator import Paginator
-# from django.http import HttpResponse
-from ..models import Question, Answer, Comment
-from ..forms import QuestionForm, AnswerForm, CommentForm
-from django.contrib.auth.decorators import login_required
-from django.contrib import messages
-
 from django.db.models import Q, Count
+from django.shortcuts import render, get_object_or_404
+import logging
+
+# from django.http import HttpResponse
+from ..models import Question
+
+
+logger = logging.getLogger('chezcandy')
+
 # Create your views here.
 
 
 def index(request):
+    logger.info("INFO level로 출력")
     page = request.GET.get('page', '1')
     kw = request.GET.get('kw', '')
     so = request.GET.get('so', 'recent')
