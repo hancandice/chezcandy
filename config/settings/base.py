@@ -193,7 +193,11 @@ LOGGING = {
             'level': 'INFO',
             'propagate': False,
         },
-        'chezcandy': {
+        'pybo': {
+            'handlers': ['console', 'file'],
+            'level': 'INFO'
+        },
+        'core': {
             'handlers': ['console', 'file'],
             'level': 'INFO'
         }

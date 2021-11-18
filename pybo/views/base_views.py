@@ -7,13 +7,13 @@ import logging
 from ..models import Question
 
 
-logger = logging.getLogger('chezcandy')
+logger = logging.getLogger(__name__)
 
 # Create your views here.
 
 
 def index(request):
-    logger.info("INFO level로 출력")
+    logger.info("Pybo에 입장하셨습니다")
     page = request.GET.get('page', '1')
     kw = request.GET.get('kw', '')
     so = request.GET.get('so', 'recent')

@@ -16,11 +16,14 @@ from django.views.generic import DetailView, View
 from hitcount.views import HitCountDetailView
 from .models import Item
 from .forms import ItemForm
+import logging
 
 # Create your views here.
 
 import random
 import string
+
+logger = logging.getLogger(__name__)
 
 
 def page_not_found(request, exception):
@@ -36,6 +39,7 @@ def internal_server_error(request):
 
 
 def index(request):
+    logger.info("Core에 입장하셨습니다")
     page = request.GET.get('page', '1')
     kw = request.GET.get('kw', '')
     sort = request.GET.get('sort', 'all')
