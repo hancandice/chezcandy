@@ -177,12 +177,11 @@ LOGGING = {
             'level': 'INFO',
             'filters': ['require_debug_false'],
             'class': 'logging.handlers.RotatingFileHandler',
-            'filename': BASE_DIR / 'logs/chezcandy.log',
+            'filename': os.path.join(BASE_DIR, 'logs/server.log'),
             'maxBytes': 1024 * 1024 * 5,  # 5 MB
             'backupCount': 5,
             'formatter': 'standard',
         },
-
     },
     'loggers': {
         'django': {
