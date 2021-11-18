@@ -1,11 +1,9 @@
-from django.db import models
-from hitcount.models import HitCountMixin, HitCount
 from django.contrib.contenttypes.fields import GenericRelation
-from django.utils.encoding import python_2_unicode_compatible
-from django.conf import settings
+from django.core.exceptions import ValidationError
+from django.db import models
 from django.shortcuts import reverse
-from django_countries.fields import CountryField
-
+from django.utils.encoding import python_2_unicode_compatible
+from hitcount.models import HitCount
 
 CATEGORY_CHOICES = (
     ('Diary', 'Diary'),
@@ -22,10 +20,19 @@ LABEL_CHOICES = (
 )
 
 
+def validate_slug_title(value):
+    try:
+        value.encode('ascii')
+    except UnicodeEncodeError:
+        raise ValidationError('Please enter all your details in english characters!')
+    else:
+        return value
+
+
 @python_2_unicode_compatible
 class Item(models.Model):
     title = models.CharField(max_length=100)
-    slug_title = models.CharField(max_length=100)
+    slug_title = models.CharField(max_length=100, validators=[validate_slug_title])
     category = models.CharField(choices=CATEGORY_CHOICES, max_length=30)
     label = models.CharField(choices=LABEL_CHOICES,
                              max_length=30, null=True, blank=True)
@@ -47,5 +54,5 @@ class Item(models.Model):
             'slug': self.slug
         })
 
-    def get_create_date_str(self): 
-        return self.create_date.strftime("%Y. %m. %d.")    
+    def get_create_date_str(self):
+        return self.create_date.strftime("%Y. %m. %d.")

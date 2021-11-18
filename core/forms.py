@@ -5,19 +5,19 @@ from django_countries.fields import CountryField
 from django_countries.widgets import CountrySelectWidget
 
 
-
 class ItemForm(forms.ModelForm):
     class Meta:
         model = Item
         fields = ['title',
-                'slug_title',
-                'category',
-                'label',
-                'contents_short',
-                'contents_long',
-                'imgsrc',
-                'image']
-                
+                  'slug_title',
+                  'category',
+                  'label',
+                  'contents_short',
+                  'contents_long',
+                  'imgsrc',
+                  'image']
+
+
 """ CATEGORY_CHOICES = (
     ('Diary', 'Diary'),
     ('Career', 'Career'),
@@ -41,4 +41,3 @@ class ItemForm(forms.Form):
     contents_long = forms.CharField(widget=forms.Textarea, required=False)
     imgsrc = forms.URLField(required=False, widget=forms.widgets.URLInput())
     image = forms.ImageField(required=False, widget=forms.widgets.ClearableFileInput()) """
-    

@@ -24,14 +24,12 @@ import string
 
 
 def page_not_found(request, exception):
-
     # 404 Page not found
 
     return render(request, '404.html', {})
 
 
 def internal_server_error(request):
-
     # 500 internal server error
 
     return render(request, '500.html', {})
@@ -99,6 +97,7 @@ def ItemCreate(request):
     if not request.user.is_superuser:
         messages.warning(request, 'Not authorized to write a post')
         return redirect('core:homepage')
+
     else:
         if request.method == "POST":
             form = ItemForm(request.POST, request.FILES)
@@ -114,15 +113,14 @@ def ItemCreate(request):
             form = ItemForm()
             return render(request, "item_form.html", {'form': form})
 
-# ============== Slug Generator ==============
 
+# ============== Slug Generator ==============
 
 def unique_slug_generator(instance, new_slug=None):
     if new_slug is not None:
         slug = new_slug
     else:
-        str = replace_all(instance.slug_title.lower())
-        slug = slugify(str)
+        slug = slugify(instance.slug_title.lower())
 
     Klass = instance.__class__
     qs_exists = Klass.objects.filter(slug=slug).exists()
@@ -139,18 +137,6 @@ def random_string_generator(size=10, chars=string.ascii_lowercase + string.digit
     return ''.join(random.choice(chars) for _ in range(size))
 
 
-def replace_all(text):
-    rep = {
-        'ı': 'i',
-        'ş': 's',
-        'ü': 'u',
-        'ö': 'o',
-        'ğ': 'g',
-        'ç': 'c'
-    }
-    for i, j in rep.items():
-        text = text.replace(i, j)
-    return text
 # ============== End of Slug Generator ==============
 
 
