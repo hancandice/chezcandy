@@ -213,6 +213,24 @@
               </h5>
             </div>    
           {% endif %}
+            {% if item.comment_set.count > 1 %}
+                            <div>
+                                <h5>
+                    <span class="badge badge-pill bg-danger">
+                    {{ item.comment_set.count }} comments
+                    </span>
+                                </h5>
+                            </div>
+                            {% endif %}
+                            {% if item.comment_set.count == 1 %}
+                            <div>
+                                <h5>
+                  <span class="badge badge-pill bg-danger">
+                    {{ item.comment_set.count }} comment
+                  </span>
+                                </h5>
+                            </div>
+                            {% endif %}
             <h5>
               <strong>
                 {% comment %}
