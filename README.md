@@ -8,7 +8,7 @@
 - [x] Sorting posts
 - [x] Searching posts by keywords
 - [x] Question & Answer Board
-- [x] Writing posts 
+- [x] Writing posts
 - [x] Voting for posts you like
 - [x] Writing comments
 - [x] View count / Popular posts suggestion
@@ -27,6 +27,6 @@
 
 > ### Visit my site from your browser ! 👇🏼
 
-- www.chezcandy.fun
+- https://chezcandy.fun
 
 ---
