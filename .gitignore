@@ -153,3 +153,9 @@ dmypy.json
 
 # Loggig
 logs
+
+# DS_Store
+.DS_Store
+
+# ssh key
+*.pem
